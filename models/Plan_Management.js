@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Define the schema for API plans
 const planSchema = new mongoose.Schema({
     plan_id: {
         type: Number,
@@ -8,7 +7,7 @@ const planSchema = new mongoose.Schema({
         unique: true
     },
     price: {
-        type: String,  // Use 'String' for 'free' or numeric values as 'String'
+        type: String,  // 'String'for'free'ornumeric values as 'String'
         required: true
     },
     max_req_per_sec: {
@@ -25,7 +24,6 @@ const planSchema = new mongoose.Schema({
     }
 });
 
-// Middleware to update the 'updated_at' field before saving
 planSchema.pre('save', function (next) {
     this.updated_at = Date.now();
     next();
@@ -33,5 +31,4 @@ planSchema.pre('save', function (next) {
 
 // Create the model for API plans
 const Plan_Management = mongoose.model('Plan_Management', planSchema);
-
 module.exports = Plan_Management;

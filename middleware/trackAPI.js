@@ -3,8 +3,8 @@ const User = require('../models/UserModel');
 const Plan_Management = require('../models/Plan_Management');
 
 const trackAPIUsage = async (req, res, next) => {
-    // Assuming user ID is passed through params or body
-    const userId = req.params.id || req.body.userId; // Get the user ID from request params or body
+
+    const userId = req.params.id || req.body.userId; 
     const apiName = req.originalUrl;
 
     if (!userId) {
@@ -12,18 +12,15 @@ const trackAPIUsage = async (req, res, next) => {
     }
 
     try {
-        // Fetch user and their current plan
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
         const plan = await Plan_Management.findById(user.current_plan);
         if (!plan) {
             return res.status(404).json({ message: 'Plan not found for the user' });
         }
 
-        // Track or update the API usage
         let usage = await APIUsage.findOne({ user_id: userId, api_name: apiName });
         if (usage) {
             usage.request_count += 1;

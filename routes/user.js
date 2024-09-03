@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/UserModel')
  
-// create new user
 router.post('/register', async(req,res)=>{
     const {name, email, password} = req.body;
     try {
@@ -15,7 +14,6 @@ router.post('/register', async(req,res)=>{
     }
 });
 
-// Fetch user by id
 router.get('/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
@@ -27,7 +25,5 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-    
 
 module.exports = router;

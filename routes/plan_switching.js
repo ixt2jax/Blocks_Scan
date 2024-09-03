@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/UserModel');
-const Plan_Management = require('../models/Plan_Management'); // Import Plan model
+const Plan_Management = require('../models/Plan_Management');
 
-// Endpoint to switch user's plan
+
 router.put('/switch/:id', async (req, res) => {
-    const { plan_id } = req.body;  // Plan ID sent in the request body
+    const { plan_id } = req.body;  
 
     try {
-        // Fetch the requested plan
+        
         const plan = await Plan_Management.findOne({ plan_id: plan_id });
         if (!plan) {
             return res.status(404).json({ message: 'Plan not found' });
         }
-
-        // Update the user's current plan
         const user = await User.findByIdAndUpdate(req.params.id, {
             current_plan: plan._id
         }, { new: true });

@@ -1,4 +1,4 @@
-// sabse pehle to mongoose import karenge mongoose is what makes it easy to use mongodb
+
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
@@ -17,9 +17,9 @@ const userSchema = new mongoose.Schema({
         minlength:6 
     },
     current_plan: {
-        type: mongoose.Schema.Types.ObjectId, // Reference to the Plan model
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'Plan_Management',
-        default: null // Default value can be 'null' or a specific plan like 'free'
+        default: null
     },
 });
 
